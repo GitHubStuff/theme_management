@@ -2,7 +2,6 @@ import 'package:extensions_package/extensions_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:theme_management/theme_management.dart';
-import 'package:theme_manager/theme_manager.dart';
 import 'package:xample/cubit/locale_cubit.dart';
 import 'package:xample/l10n/mixin.dart';
 
@@ -25,7 +24,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with Dicti
         appBar: AppBar(
           title: Text(widget.title),
           actions: [
-            ThemeControlWidget(),
+            //ThemeControlWidget(),
           ],
         ),
         body: _body(context),

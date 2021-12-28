@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:theme_manager/theme_manager.dart';
+import 'package:theme_management/theme_management.dart';
 import 'package:xample/cubit/locale_cubit.dart';
 
 class ThemeAndMaterialWidget extends StatelessWidget {
@@ -12,7 +12,7 @@ class ThemeAndMaterialWidget extends StatelessWidget {
     return _localeWidget();
   }
 
-/// Widget wrapper to enclose the BlocBuilder that manages state for changing lanaguage/locale
+  /// Widget wrapper to enclose the BlocBuilder that manages state for changing lanaguage/locale
   Widget _localeWidget() {
     LocaleCubit localeCubit = Modular.get<LocaleCubit>();
     Locale? currentLocale;
@@ -29,18 +29,18 @@ class ThemeAndMaterialWidget extends StatelessWidget {
         });
   }
 
-/// Widget wrapper to enclose switching dark/light mode themes of the MaterialApp
+  /// Widget wrapper to enclose switching dark/light mode themes of the MaterialApp
   Widget _materialAppBloc(Locale? locale) {
-    return BlocBuilder<ThemeCubit, ThemeCubitState>(
-        bloc: ThemeManager.themeCubit,
+    return BlocBuilder<ThemeModeCubit, ThemeModeState>(
+        bloc: ThemeManagement.themeModeCubit,
         builder: (_, state) {
-          if (state is UpdateThemeMode) {}
+          //if (state is UpdateThemeMode) {}
           return MaterialApp(
             title: 'Flutter Demo',
             locale: locale,
-            theme: ThemeManager.lightTheme,
-            darkTheme: ThemeManager.darkTheme,
-            themeMode: ThemeManager.themeMode,
+            theme: ThemeManagement.lightTheme,
+            darkTheme: ThemeManagement.darkTheme,
+            themeMode: ThemeManagement.themeMode,
             initialRoute: '/',
             localizationsDelegates: [
               AppLocalizations.delegate, //Used to translate strings in /l10n/app_en.arb or /l10n/app_es.arb files
