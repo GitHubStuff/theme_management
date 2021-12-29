@@ -1,5 +1,5 @@
 name: theme_management
-version: 0.0.1+1
+version: 0.0.1+2
 homepage: http://www.raehealth.com
 publish_to: 'none'
 
@@ -11,10 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.4
-  flutter_bloc: ^8.0.0
+  flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
-  flutter_modular: ^4.2.0
+  flutter_modular: ^4.3.0
   hive_flutter: ^1.1.0
   intl: ^0.17.0
   extensions_package:

@@ -16,10 +16,10 @@ dependencies:
   extensions_package:
     git:
       url: https://github.com/RAE-Health/extensions_package.git
-  flutter_bloc: ^8.0.0
+  flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
-  flutter_modular: ^4.2.0
+  flutter_modular: ^4.3.0
   intl: ^0.17.0
 
 dependency_overrides: null
