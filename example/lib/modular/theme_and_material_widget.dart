@@ -1,3 +1,4 @@
+import 'package:extensions_package/extensions_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -31,15 +32,35 @@ class ThemeAndMaterialWidget extends StatelessWidget {
 
   /// Widget wrapper to enclose switching dark/light mode themes of the MaterialApp
   Widget _materialAppBloc(Locale? locale) {
+    var darkTheme = ThemeManagement.darkTheme;
+    var lightTheme = ThemeManagement.lightTheme;
     return BlocBuilder<ThemeModeCubit, ThemeModeState>(
         bloc: ThemeManagement.themeModeCubit,
-        builder: (_, state) {
-          //if (state is UpdateThemeMode) {}
+        builder: (context, state) {
+          if (state is ChangeThemeState) {
+            final mode = state.mode;
+            switch (mode) {
+              case ThemeMode.dark:
+                darkTheme = state.themeData;
+                break;
+              case ThemeMode.light:
+                lightTheme = state.themeData;
+                break;
+              case ThemeMode.system:
+                switch (mode.of(context)) {
+                  case Brightness.light:
+                    lightTheme = state.themeData;
+                    break;
+                  case Brightness.dark:
+                    darkTheme = state.themeData;
+                }
+            }
+          }
           return MaterialApp(
             title: 'Flutter Demo',
             locale: locale,
-            theme: ThemeManagement.lightTheme,
-            darkTheme: ThemeManagement.darkTheme,
+            theme: lightTheme,
+            darkTheme: darkTheme,
             themeMode: ThemeManagement.themeMode,
             initialRoute: '/',
             localizationsDelegates: [

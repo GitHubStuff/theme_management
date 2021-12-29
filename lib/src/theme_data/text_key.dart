@@ -1,6 +1,9 @@
 // Copyright 2021 LTMM. All rights reserved.
 //
+import 'package:extensions_package/extensions_package.dart';
 import 'package:flutter/material.dart';
+
+import '../../theme_management.dart';
 
 /// [Helper enum]
 /// This defines an [enum] to use with [TextTheme sizes], and [light/dark text colors] for properties in the
@@ -20,6 +23,15 @@ enum TextKey {
   caption,
   button,
   overline,
+}
+
+extension TextKeyExtensions on TextKey {
+  TextStyle textStyle({required BuildContext of}) => TextStyle(
+        fontSize: textSizeMap[this]!,
+        color: color(of: of),
+      );
+
+  Color color({required BuildContext of}) => (ThemeManagement.themeMode.of(of) == Brightness.dark) ? textColorDarkMode[this]! : textColorLightMode[this]!;
 }
 
 // Font sizes

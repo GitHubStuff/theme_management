@@ -17,6 +17,9 @@ dependencies:
   flutter_modular: ^4.2.0
   hive_flutter: ^1.1.0
   intl: ^0.17.0
+  extensions_package:
+    git:
+      url: https://github.com/RAE-Health/extensions_package.git
 
 dependency_overrides: null
 

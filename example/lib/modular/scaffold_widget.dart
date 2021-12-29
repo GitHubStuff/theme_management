@@ -1,5 +1,6 @@
 import 'package:extensions_package/extensions_package.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:theme_management/theme_management.dart';
 import 'package:xample/cubit/locale_cubit.dart';
@@ -32,6 +33,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with Dicti
           onPressed: () {
             setState(() {
               isFirst = !isFirst;
+              ThemeManagement.darkTheme = isFirst ? DefaultThemes.defaultDarkThemeData() : DefaultThemes.fallbackDarkTheme();
             });
           },
           tooltip: 'Increment',
@@ -45,22 +47,28 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with Dicti
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(lookup(DictionaryEnum.helloWorld, of: context)), //Example of localization
+          BlocBuilder<ThemeModeCubit, ThemeModeState>(
+              bloc: ThemeManagement.themeModeCubit,
+              builder: (_, state) {
+                return Text(
+                  'ThemeMode: ${ThemeManagement.themeMode.type(context).name}',
+                  style: TextKey.headline5.textStyle(of: context),
+                );
+              }),
+
+          Text(lookup(DictionaryEnum.helloWorld, of: context), style: TextKey.headline6.textStyle(of: context)), //Example of localization
           Text(
             message,
           ),
           WidgetSize(
             onSizeChange: (Size? size) {
               setState(() {
-                final height = context.height;
-                final width = context.width;
-                debugPrint('height: $height, width: $width $isFirst');
                 message = 'Size - $size';
               });
             },
             child: Text(
               isFirst ? instruction : instruction2,
-              style: Theme.of(context).textTheme.headline4,
+              style: TextKey.headline4.textStyle(of: context),
             ),
           ),
           SizedBox(height: 24),
@@ -71,7 +79,46 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with Dicti
               ElevatedButton(onPressed: () => localeCubit.updateLocale(Locale('es', '')), child: Text('Spanish')),
               ElevatedButton(onPressed: () => localeCubit.updateLocale(Locale('de', '')), child: Text('German')),
             ],
-          )
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () => ThemeManagement.themeMode = ThemeMode.dark,
+                child: Text('Dark'),
+                style: ElevatedButton.styleFrom(
+                  primary: ThemeColors(
+                    dark: Colors.red,
+                    light: Colors.green,
+                  ).of(context),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () => ThemeManagement.themeMode = ThemeMode.light,
+                child: Text('Light'),
+                style: ElevatedButton.styleFrom(
+                  primary: ThemeColors(
+                    dark: Colors.amber,
+                    light: Colors.purple,
+                  ).of(context),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  ThemeManagement.themeMode = ThemeMode.system;
+                },
+                child: Text('System'),
+                style: isFirst
+                    ? null
+                    : ElevatedButton.styleFrom(
+                        primary: ThemeColors(
+                          dark: Colors.black,
+                          light: Colors.deepOrange,
+                        ).of(context),
+                      ),
+              ),
+            ],
+          ),
         ],
       ),
     );

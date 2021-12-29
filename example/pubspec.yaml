@@ -22,10 +22,7 @@ dependencies:
   flutter_modular: ^4.2.0
   intl: ^0.17.0
 
-dependency_overrides:
-  app_exception:
-    git:
-      url: https://github.com/GitHubStuff/app_exception.git
+dependency_overrides: null
 
 dev_dependencies:
   test: ^1.20.1

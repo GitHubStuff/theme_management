@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'abstact_theme_management.dart';
 import 'cubit/theme_mode_cubit.dart';
 import 'theme_data/default_themes.dart';
 
-class ThemeManagement extends AbstractThemeManagement {
+class ThemeManagement {
   static ThemeModeCubit _themeModeCubit = ThemeModeCubit();
   static ThemeModeCubit get themeModeCubit => _themeModeCubit;
 
@@ -17,21 +16,21 @@ class ThemeManagement extends AbstractThemeManagement {
 
   static ThemeMode get themeMode => _themeModeCubit.themeMode;
 
-  static ThemeData _darkTheme = DefaultThemes.defaultDarkThemeData;
+  static ThemeData _darkTheme = DefaultThemes.defaultDarkThemeData();
 
   static ThemeData get darkTheme => _darkTheme;
 
   static set darkTheme(ThemeData themeData) {
     _darkTheme = themeData;
-    _themeModeCubit.refreshTheme();
+    _themeModeCubit.changeTheme(ThemeMode.dark, themeData);
   }
 
   static ThemeData _lightTheme = DefaultThemes.defaultLightThemeData;
 
   static ThemeData get lightTheme => _lightTheme;
-  
+
   static set lightTheme(ThemeData themeData) {
     _lightTheme = themeData;
-    _themeModeCubit.refreshTheme();
+    _themeModeCubit.changeTheme(ThemeMode.light, themeData);
   }
 }

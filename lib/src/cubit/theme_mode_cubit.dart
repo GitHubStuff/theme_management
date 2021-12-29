@@ -12,7 +12,7 @@ class ThemeModeCubit extends Cubit<ThemeModeState> {
 
   ThemeModeCubit([ThemeMode? themeMode])
       : _themeMode = themeMode ?? ThemeMode.system,
-        _usingHiveToPersistMode = (themeMode != null),
+        _usingHiveToPersistMode = (themeMode == null),
         super(ThemeModeInitial());
 
   Future<void> setup() async {
@@ -25,7 +25,7 @@ class ThemeModeCubit extends Cubit<ThemeModeState> {
     emit(ThemeModeUpdate(mode));
   }
 
-  void refreshTheme() => emit(RefreshTheme());
+  void changeTheme(ThemeMode mode, ThemeData theme) => emit(ChangeThemeState(mode, theme));
 
   ThemeMode get themeMode => _usingHiveToPersistMode ? _HiveStorageThemeMode.themeMode : _themeMode;
 }

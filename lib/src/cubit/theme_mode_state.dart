@@ -10,4 +10,8 @@ class ThemeModeUpdate extends ThemeModeState {
   ThemeModeUpdate(this.newThemeMode);
 }
 
-class RefreshTheme extends ThemeModeState {}
+class ChangeThemeState extends ThemeModeState {
+  final ThemeMode mode;
+  final ThemeData themeData;
+  ChangeThemeState(this.mode, this.themeData);
+}
