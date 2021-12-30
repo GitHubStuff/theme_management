@@ -2,8 +2,6 @@
 
 part of 'default_themes.dart';
 
-
-
 /// This is a private class the builds [MaterialApp TextStyle]
 /// NOTE: It is intended as a [template] but should not require extensive (or any) changes.
 /// NOTE:
