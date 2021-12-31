@@ -1,7 +1,13 @@
-import 'package:extensions_package/extensions_package.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:theme_management/theme_management.dart';
+
+enum BrightnessType {
+  appDark,
+  appLight,
+  systemDark,
+  systemLight,
+}
 
 extension BrightnessTypeExtensions on BrightnessType {
   Widget icon(BuildContext context, {ThemeColors? modeColors}) {
