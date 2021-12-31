@@ -1,5 +1,5 @@
 name: theme_management
-version: 0.2.0+1
+version: 0.2.0+2
 homepage: http://www.raehealth.com
 publish_to: 'none'
 
@@ -20,6 +20,7 @@ dependencies:
   extensions_package:
     git:
       url: https://github.com/RAE-Health/extensions_package.git
+  font_awesome_flutter: ^9.2.0
 
 dependency_overrides: null
 

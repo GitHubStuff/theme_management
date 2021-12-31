@@ -42,7 +42,6 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with Dicti
       );
 
   Widget _body(BuildContext context) {
-    LocaleCubit localeCubit = Modular.get<LocaleCubit>();
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -55,8 +54,6 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with Dicti
                   style: TextKey.headline5.textStyle(of: context),
                 );
               }),
-
-          Text(lookup(DictionaryEnum.helloWorld, of: context), style: TextKey.headline6.textStyle(of: context)), //Example of localization
           Text(
             message,
           ),
@@ -72,14 +69,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with Dicti
             ),
           ),
           SizedBox(height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(onPressed: () => localeCubit.updateLocale(Locale('en', '')), child: Text('English')),
-              ElevatedButton(onPressed: () => localeCubit.updateLocale(Locale('es', '')), child: Text('Spanish')),
-              ElevatedButton(onPressed: () => localeCubit.updateLocale(Locale('de', '')), child: Text('German')),
-            ],
-          ),
+          _languageWidget(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -119,6 +109,44 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with Dicti
               ),
             ],
           ),
+          _modeIcons(),
+        ],
+      ),
+    );
+  }
+
+  Widget _languageWidget() {
+    LocaleCubit localeCubit = Modular.get<LocaleCubit>();
+    return Container(
+      child: Column(
+        children: [
+          Text(lookup(DictionaryEnum.helloWorld, of: context), style: TextKey.headline6.textStyle(of: context)), //Example of localization
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(onPressed: () => localeCubit.updateLocale(Locale('en', '')), child: Text('English')),
+              ElevatedButton(onPressed: () => localeCubit.updateLocale(Locale('es', '')), child: Text('Spanish')),
+              ElevatedButton(onPressed: () => localeCubit.updateLocale(Locale('de', '')), child: Text('German')),
+            ],
+          ),
+        ],
+      ),
+    ).borderAll(Colors.green).paddingAll(3);
+  }
+
+  Widget _modeIcons() {
+    return Container(
+      child: Wrap(
+        spacing: 8.0,
+        children: [
+          BrightnessType.appDark.icon(context),
+          Text(BrightnessType.appDark.name),
+          BrightnessType.appLight.icon(context),
+          Text(BrightnessType.appLight.name),
+          BrightnessType.systemDark.icon(context),
+          Text(BrightnessType.systemDark.name),
+          BrightnessType.systemLight.icon(context),
+          Text(BrightnessType.systemLight.name),
         ],
       ),
     );
