@@ -1,5 +1,5 @@
 name: theme_management
-version: 0.2.1+1
+version: 0.2.2+1
 homepage: http://www.raehealth.com
 publish_to: 'none'
 
@@ -25,7 +25,7 @@ dependencies:
 dependency_overrides: null
 
 dev_dependencies:
-  test: ^1.20.1
+  test:
 
 flutter:
   uses-material-design: true

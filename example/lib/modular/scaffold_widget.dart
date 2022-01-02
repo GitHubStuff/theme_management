@@ -50,7 +50,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with Dicti
               bloc: ThemeManagement.themeModeCubit,
               builder: (_, state) {
                 return Text(
-                  'ThemeMode: ${ThemeManagement.themeMode.brightnessType(context).name}',
+                  'ThemeMode: ${ThemeManagement.themeMode.brightnessMode(context).name}',
                   style: TextKey.headline5.textStyle(of: context),
                 );
               }),

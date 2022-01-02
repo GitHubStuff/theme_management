@@ -30,6 +30,7 @@ extension TextKeyExtensions on TextKey {
         fontSize: textSizeMap[this]!,
         color: color(of: of),
       );
+  double get fontSize => textSizeMap[this]!;
 
   Color color({required BuildContext of}) => (ThemeManagement.themeMode.of(of) == Brightness.dark) ? textColorDarkMode[this]! : textColorLightMode[this]!;
 }

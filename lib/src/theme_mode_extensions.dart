@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../theme_management.dart';
 
 extension ThemeModeBrightnessTypeExtension on ThemeMode {
-  BrightnessType brightnessType(BuildContext context) {
+  BrightnessType brightnessMode(BuildContext context) {
     switch (this) {
       case ThemeMode.dark:
         return BrightnessType.appDark;
