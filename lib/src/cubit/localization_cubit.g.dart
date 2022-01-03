@@ -6,52 +6,52 @@ part of 'localization_cubit.dart';
 // LocalizeCubitGenerator
 // **************************************************************************
 
-class PKGLocalizationCubit extends Cubit<PKGLocalizationState> {
-  static final PKGLocalizationCubit _singleton =
-      PKGLocalizationCubit._internal();
-  factory PKGLocalizationCubit() => _singleton;
-  PKGLocalizationCubit._internal() : super(PKGLocaleInitial());
-  static PKGLocalizationCubit _localizationCubit = PKGLocalizationCubit();
-  static PKGLocalizationCubit get cubit => _localizationCubit;
+class TMGLocalizationCubit extends Cubit<TMGLocalizationState> {
+  static final TMGLocalizationCubit _singleton =
+      TMGLocalizationCubit._internal();
+  factory TMGLocalizationCubit() => _singleton;
+  TMGLocalizationCubit._internal() : super(TMGLocaleInitial());
+  static TMGLocalizationCubit _localizationCubit = TMGLocalizationCubit();
+  static TMGLocalizationCubit get cubit => _localizationCubit;
 
   static Future<void> setup({Locale? locale}) async {
     _localizationCubit._locale = locale;
     _localizationCubit._usingHivePersistence = (locale == null);
-    if (_localizationCubit._usingHivePersistence) await PKGHiveManager.setup();
+    if (_localizationCubit._usingHivePersistence) await TMGHiveManager.setup();
   }
 
   Locale? _locale;
   bool _usingHivePersistence = false;
   Locale get locale {
     if (_localizationCubit._usingHivePersistence)
-      _locale = PKGHiveManager.get();
+      _locale = TMGHiveManager.get();
     return _locale ?? Locale('en');
   }
 
   set locale(Locale locale) {
     _locale = locale;
     if (_localizationCubit._usingHivePersistence)
-      PKGHiveManager.save(locale: locale);
-    _localizationCubit.emit(PKGLocaleUpdated(locale));
+      TMGHiveManager.save(locale: locale);
+    _localizationCubit.emit(TMGLocaleUpdated(locale));
   }
 }
 
 //MARK: State
 @immutable
-abstract class PKGLocalizationState {}
+abstract class TMGLocalizationState {}
 
-class PKGLocaleInitial extends PKGLocalizationState {}
+class TMGLocaleInitial extends TMGLocalizationState {}
 
-class PKGLocaleUpdated extends PKGLocalizationState {
+class TMGLocaleUpdated extends TMGLocalizationState {
   final Locale updatedLocale;
-  PKGLocaleUpdated(this.updatedLocale);
+  TMGLocaleUpdated(this.updatedLocale);
 }
 
 //MARK: Hive
 bool _isLocaleHiveSetup = false;
 
-class PKGHiveManager {
-  static const _boxName = 'com.pkglocalization.hive.saved_locale.language_code';
+class TMGHiveManager {
+  static const _boxName = 'com.tmglocalization.hive.saved_locale.language_code';
   static Box? _box;
   static Future<void> setup() async {
     try {
@@ -67,7 +67,7 @@ class PKGHiveManager {
 
   static Locale save({required Locale locale}) {
     if (!_isLocaleHiveSetup)
-      throw FlutterError('PKGLocalizationCubit.setupLocalization not called!');
+      throw FlutterError('TMGLocalizationCubit.setupLocalization not called!');
     final String languageCode = locale.languageCode;
     _box?.put(_boxName, languageCode);
     return Locale(languageCode);
@@ -75,7 +75,7 @@ class PKGHiveManager {
 
   static Locale get() {
     if (!_isLocaleHiveSetup)
-      throw FlutterError('PKGLocalizationCubit.setupLocalization not called!');
+      throw FlutterError('TMGLocalizationCubit.setupLocalization not called!');
     String storedValue =
         _box?.get(_boxName, defaultValue: 'en'); // 'en' - english
     return Locale(storedValue);

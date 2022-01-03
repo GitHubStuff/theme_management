@@ -7,7 +7,7 @@ class AppModule extends Module {
   // Provide a list of dependencies to inject into your project
   @override
   final List<Bind> binds = [
-    Bind.lazySingleton((i) => APPLocalizationCubit()),
+    Bind.lazySingleton((i) => XYXLocalizationCubit()),
   ];
 
   // Provide all the routes for your module

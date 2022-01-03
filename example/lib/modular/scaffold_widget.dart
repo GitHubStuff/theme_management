@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:theme_management/theme_management.dart';
+import 'package:xample/cubit/localization_cubit.dart';
 import 'package:xample/localization/dictionary_enum.dart';
-
-import '../cubit/localization_cubit.dart';
 
 class ScaffoldWidget extends StatefulWidget {
   ScaffoldWidget({Key? key, required this.title}) : super(key: key);
@@ -34,7 +33,6 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
           onPressed: () {
             setState(() {
               isFirst = !isFirst;
-              ThemeManagement.darkTheme = isFirst ? DefaultThemes.defaultDarkThemeData() : DefaultThemes.fallbackDarkTheme();
             });
           },
           tooltip: 'Increment',
@@ -43,111 +41,113 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
       );
 
   Widget _body(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          BlocBuilder<ThemeModeCubit, ThemeModeState>(
-              bloc: ThemeManagement.themeModeCubit,
-              builder: (_, state) {
-                return Text(
-                  'ThemeMode: ${ThemeManagement.themeMode.brightnessMode(context).name}',
-                  style: TextKey.headline5.textStyle(of: context),
-                );
-              }),
-          Text(
-            message,
-          ),
-          WidgetSize(
-            onSizeChange: (Size? size) {
-              setState(() {
-                message = 'Size - $size';
-              });
-            },
-            child: Text(
-              isFirst ? instruction : instruction2,
-              style: TextKey.headline4.textStyle(of: context),
+    XYXLocalizationCubit localeCubit = Modular.get<XYXLocalizationCubit>();
+    return Column(
+      //mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          message,
+        ),
+        WidgetSize(
+          onSizeChange: (Size? size) {
+            setState(() => message = 'Size - $size');
+          },
+          child: Text(
+            isFirst ? instruction : instruction2,
+            style: Theme.of(context).textTheme.headline5,
+          ).fontSize(TextKey.subtitle1.fontSize),
+        ),
+        SizedBox(height: 4),
+        Container(
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Column(
+              children: [
+                BlocBuilder<ThemeModeCubit, ThemeModeState>(
+                    bloc: ThemeManagement.themeModeCubit,
+                    builder: (_, state) {
+                      return Text('ThemeMode: ${ThemeManagement.themeMode.brightnessMode(context).name}').fontSize(TextKey.headline6.fontSize);
+                    }),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(onPressed: () => ThemeManagement.themeMode = ThemeMode.dark, child: Text('Dark')),
+                    ElevatedButton(onPressed: () => ThemeManagement.themeMode = ThemeMode.light, child: Text('Light')),
+                    ElevatedButton(onPressed: () => ThemeManagement.themeMode = ThemeMode.system, child: Text('System')),
+                  ],
+                ),
+                _themeIcons(),
+              ],
             ),
           ),
-          SizedBox(height: 24),
-          _languageWidget(),
-          Row(
+        )
+            .borderAll(
+              ThemeColors(
+                dark: Colors.amber,
+                light: Colors.black87,
+              ).of(context),
+            )
+            .paddingAll(3.0),
+        SizedBox(height: 4),
+        Expanded(
+          flex: 2,
+          child: ListView.builder(
+              itemCount: XYXLocalization.values.length,
+              itemBuilder: (context, index) {
+                final tag = XYXLocalization.values[index].name;
+                final txt = XYXLocalization.values[index].text;
+                return Text('  $tag => $txt').fontSize(18.0);
+              }),
+        ),
+        Container(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
-                onPressed: () => ThemeManagement.themeMode = ThemeMode.dark,
-                child: Text('Dark'),
-                style: ElevatedButton.styleFrom(
-                  primary: ThemeColors(
-                    dark: Colors.red,
-                    light: Colors.green,
-                  ).of(context),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () => ThemeManagement.themeMode = ThemeMode.light,
-                child: Text('Light'),
-                style: ElevatedButton.styleFrom(
-                  primary: ThemeColors(
-                    dark: Colors.amber,
-                    light: Colors.purple,
-                  ).of(context),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () => ThemeManagement.themeMode = ThemeMode.system,
-                child: Text('System'),
-                style: isFirst
-                    ? null
-                    : ElevatedButton.styleFrom(
-                        primary: ThemeColors(
-                          dark: Colors.black,
-                          light: Colors.deepOrange,
-                        ).of(context),
-                      ),
+              Text(XYXLocalization.helloWorld.text).fontSize(22.0), //Example of localization
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(onPressed: () => localeCubit.locale = Locale('en', ''), child: Text('English')),
+                  ElevatedButton(onPressed: () => localeCubit.locale = Locale('es', ''), child: Text('Spanish')),
+                  ElevatedButton(onPressed: () => localeCubit.locale = Locale('de', ''), child: Text('German')),
+                ],
               ),
             ],
           ),
-          _modeIcons(),
-        ],
-      ),
+        ).borderAll(Colors.blueAccent).paddingAll(3.0),
+        SizedBox(height: 72.0),
+      ],
     );
   }
 
-  Widget _languageWidget() {
-    APPLocalizationCubit localeCubit = Modular.get<APPLocalizationCubit>();
-    return Container(
-      child: Column(
-        children: [
-          Text(APPLocalization.helloWorld.text), //Example of localization
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(onPressed: () => localeCubit.locale = (Locale('en', '')), child: Text('English')),
-              ElevatedButton(onPressed: () => localeCubit.locale = (Locale('es', '')), child: Text('Spanish')),
-              ElevatedButton(onPressed: () => localeCubit.locale = (Locale('de', '')), child: Text('German')),
-            ],
-          ),
-        ],
-      ),
-    ).borderAll(Colors.green).paddingAll(3);
-  }
-
-  Widget _modeIcons() {
-    return Container(
-      child: Wrap(
-        spacing: 8.0,
-        children: [
-          BrightnessType.appDark.icon(context),
-          Text(BrightnessType.appDark.name),
-          BrightnessType.appLight.icon(context),
-          Text(BrightnessType.appLight.name),
-          BrightnessType.systemDark.icon(context),
-          Text(BrightnessType.systemDark.name),
-          BrightnessType.systemLight.icon(context),
-          Text(BrightnessType.systemLight.name),
-        ],
-      ),
+  Widget _themeIcons() {
+    return Column(
+      children: [
+        Row(
+          children: [
+            BrightnessType.appDark.icon(context).padding(left: 8, right: 6, bottom: 2),
+            Text(BrightnessType.appDark.name),
+          ],
+        ),
+        Row(
+          children: [
+            BrightnessType.appLight.icon(context).padding(left: 8, right: 6, bottom: 2),
+            Text(BrightnessType.appLight.name),
+          ],
+        ),
+        Row(
+          children: [
+            BrightnessType.systemDark.icon(context).padding(left: 8, right: 6, bottom: 2),
+            Text(BrightnessType.systemDark.name),
+          ],
+        ),
+        Row(
+          children: [
+            BrightnessType.systemLight.icon(context).padding(left: 8, right: 6, bottom: 2),
+            Text(BrightnessType.systemLight.name),
+          ],
+        ),
+      ],
     );
   }
 }

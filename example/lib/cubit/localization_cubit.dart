@@ -6,5 +6,5 @@ import 'package:localize_enum_annotation/localize_enum_annotation.dart';
 
 part 'localization_cubit.g.dart';
 
-@LocalizeCubit('APP', 'APPLocalization')
+@LocalizeCubit('XYX', 'XYXLocalization')
 abstract class Template {}

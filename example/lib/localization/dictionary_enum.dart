@@ -9,7 +9,7 @@ import '../cubit/localization_cubit.dart';
 part 'dictionary_enum.g.dart';
 
 @localizeEnum
-enum APPLocalization {
+enum XYXLocalization {
   helloWorld,
   language,
 }

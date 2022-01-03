@@ -15,11 +15,11 @@ class ThemeAndMaterialWidget extends StatelessWidget {
 
   /// Widget wrapper to enclose the BlocBuilder that manages state for changing lanaguage/locale
   Widget _localeWidget() {
-    APPLocalizationCubit localeCubit = Modular.get<APPLocalizationCubit>();
-    return BlocBuilder<APPLocalizationCubit, APPLocalizationState>(
+    XYXLocalizationCubit localeCubit = Modular.get<XYXLocalizationCubit>();
+    return BlocBuilder<XYXLocalizationCubit, XYXLocalizationState>(
         bloc: localeCubit,
         builder: (_, state) {
-          return _materialAppBloc(APPLocalizationCubit.cubit.locale);
+          return _materialAppBloc(XYXLocalizationCubit.cubit.locale);
         });
   }
 
