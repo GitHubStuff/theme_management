@@ -2,7 +2,7 @@ part of 'theme_mode_cubit.dart';
 
 const String _hiveBoxName = 'com.icodeforyou.hiveboxname.thememode';
 
-class _HiveStorageThemeMode {
+class _ThemeModeHive {
   static Box? box;
 
   static Future<void> hiveSetup() async {

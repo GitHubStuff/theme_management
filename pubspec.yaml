@@ -16,6 +16,7 @@ dependencies:
     sdk: flutter
   flutter_modular: ^4.3.0
   hive_flutter: ^1.1.0
+  i69n: ^2.1.0
   intl: ^0.17.0
   extensions_package:
     git:
@@ -26,7 +27,13 @@ dependency_overrides: null
 
 dev_dependencies:
   test:
+  build_runner:
+  localize_enum:
+    git:
+      url: https://github.com/RAE-Health/localize_enum.git
+      path: packages/localize_enum
 
 flutter:
   uses-material-design: true
-  generate: true
+  generate: false
+  #switched to 'false' because of "Bad state:Bad state: Unable to generate package graph, no `.dart_tool/flutter_gen/pubspec.yaml` found"

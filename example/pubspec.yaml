@@ -20,12 +20,23 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_modular: ^4.3.0
+  i69n: ^2.1.0
   intl: ^0.17.0
+  localize_enum_annotation:
+    git:
+      url: https://github.com/RAE-Health/localize_enum.git
+      path: packages/localize_enum_annotation
+
 
 dependency_overrides: null
 
 dev_dependencies:
-  test: ^1.20.1
+  test:
+  build_runner:
+  localize_enum:
+    git:
+      url: https://github.com/RAE-Health/localize_enum.git
+      path: packages/localize_enum
 
 flutter:
   uses-material-design: true

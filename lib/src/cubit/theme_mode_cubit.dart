@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'hive_storage_thememode.dart';
+part 'theme_mode_hive.dart';
 part 'theme_mode_state.dart';
 
 class ThemeModeCubit extends Cubit<ThemeModeState> {
@@ -16,16 +16,16 @@ class ThemeModeCubit extends Cubit<ThemeModeState> {
         super(ThemeModeInitial());
 
   Future<void> setup() async {
-    if (_usingHiveToPersistMode) await _HiveStorageThemeMode.hiveSetup();
+    if (_usingHiveToPersistMode) await _ThemeModeHive.hiveSetup();
   }
 
   set themeMode(mode) {
-    if (_usingHiveToPersistMode) _HiveStorageThemeMode.themeMode = mode;
+    if (_usingHiveToPersistMode) _ThemeModeHive.themeMode = mode;
     _themeMode = mode;
     emit(ThemeModeUpdate(mode));
   }
 
   void changeTheme(ThemeMode mode, ThemeData theme) => emit(ChangeThemeState(mode, theme));
 
-  ThemeMode get themeMode => _usingHiveToPersistMode ? _HiveStorageThemeMode.themeMode : _themeMode;
+  ThemeMode get themeMode => _usingHiveToPersistMode ? _ThemeModeHive.themeMode : _themeMode;
 }

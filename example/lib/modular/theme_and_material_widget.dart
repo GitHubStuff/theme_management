@@ -5,7 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:theme_management/theme_management.dart';
-import 'package:xample/cubit/locale_cubit.dart';
+import 'package:xample/cubit/localization_cubit.dart';
 
 class ThemeAndMaterialWidget extends StatelessWidget {
   @override
@@ -15,18 +15,11 @@ class ThemeAndMaterialWidget extends StatelessWidget {
 
   /// Widget wrapper to enclose the BlocBuilder that manages state for changing lanaguage/locale
   Widget _localeWidget() {
-    LocaleCubit localeCubit = Modular.get<LocaleCubit>();
-    Locale? currentLocale;
-    return BlocBuilder<LocaleCubit, LocaleState>(
+    APPLocalizationCubit localeCubit = Modular.get<APPLocalizationCubit>();
+    return BlocBuilder<APPLocalizationCubit, APPLocalizationState>(
         bloc: localeCubit,
         builder: (_, state) {
-          if (state is LocaleInitial) {
-            localeCubit.lookupInitialLocale();
-          }
-          if (state is LocaleUpdated) {
-            currentLocale = state.updatedLocale;
-          }
-          return _materialAppBloc(currentLocale);
+          return _materialAppBloc(APPLocalizationCubit.cubit.locale);
         });
   }
 

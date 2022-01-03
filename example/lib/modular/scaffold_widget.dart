@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:theme_management/theme_management.dart';
-import 'package:xample/cubit/locale_cubit.dart';
-import 'package:xample/l10n/mixin.dart';
+import 'package:xample/localization/dictionary_enum.dart';
+
+import '../cubit/localization_cubit.dart';
 
 class ScaffoldWidget extends StatefulWidget {
   ScaffoldWidget({Key? key, required this.title}) : super(key: key);
@@ -14,7 +15,7 @@ class ScaffoldWidget extends StatefulWidget {
   _ScaffoldWidget createState() => _ScaffoldWidget();
 }
 
-class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with DictionaryEnumMixin {
+class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
   String message = 'Tap for Size';
   String instruction = 'Tap + to change the text';
   String instruction2 = 'Tap again';
@@ -94,9 +95,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with Dicti
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
-                  ThemeManagement.themeMode = ThemeMode.system;
-                },
+                onPressed: () => ThemeManagement.themeMode = ThemeMode.system,
                 child: Text('System'),
                 style: isFirst
                     ? null
@@ -116,17 +115,17 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with Dicti
   }
 
   Widget _languageWidget() {
-    LocaleCubit localeCubit = Modular.get<LocaleCubit>();
+    APPLocalizationCubit localeCubit = Modular.get<APPLocalizationCubit>();
     return Container(
       child: Column(
         children: [
-          Text(lookup(DictionaryEnum.helloWorld, of: context), style: TextKey.headline6.textStyle(of: context)), //Example of localization
+          Text(APPLocalization.helloWorld.text), //Example of localization
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(onPressed: () => localeCubit.updateLocale(Locale('en', '')), child: Text('English')),
-              ElevatedButton(onPressed: () => localeCubit.updateLocale(Locale('es', '')), child: Text('Spanish')),
-              ElevatedButton(onPressed: () => localeCubit.updateLocale(Locale('de', '')), child: Text('German')),
+              ElevatedButton(onPressed: () => localeCubit.locale = (Locale('en', '')), child: Text('English')),
+              ElevatedButton(onPressed: () => localeCubit.locale = (Locale('es', '')), child: Text('Spanish')),
+              ElevatedButton(onPressed: () => localeCubit.locale = (Locale('de', '')), child: Text('German')),
             ],
           ),
         ],
