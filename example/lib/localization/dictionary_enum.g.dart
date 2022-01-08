@@ -6,12 +6,12 @@ part of 'dictionary_enum.dart';
 // LocalizeEnumGenerator
 // **************************************************************************
 
-extension XYXLocalizationLookup on XYXLocalization {
-  String _lookup(XYXLocalization key, TextLocal text) {
+extension XPALLocalizationLookup on XPALLocalization {
+  String _lookup(XPALLocalization key, TextLocal text) {
     switch (key) {
-      case XYXLocalization.helloWorld:
+      case XPALLocalization.helloWorld:
         return text.helloWorld;
-      case XYXLocalization.language:
+      case XPALLocalization.language:
         return text.language;
     }
   }
@@ -30,5 +30,5 @@ extension XYXLocalizationLookup on XYXLocalization {
 
   String byLocale(Locale locale) => byLanguageCode(locale.languageCode);
 
-  String get text => byLocale(XYXLocalizationCubit.cubit.locale);
+  String get text => byLocale(XPALLocalizationCubit.locale);
 }

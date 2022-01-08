@@ -14,24 +14,25 @@ class TMGLocalizationCubit extends Cubit<TMGLocalizationState> {
   static TMGLocalizationCubit _localizationCubit = TMGLocalizationCubit();
   static TMGLocalizationCubit get cubit => _localizationCubit;
 
+  bool _usingHiveStore = false;
+
   static Future<void> setup({Locale? locale}) async {
     _localizationCubit._locale = locale;
-    _localizationCubit._usingHivePersistence = (locale == null);
-    if (_localizationCubit._usingHivePersistence) await TMGHiveManager.setup();
+    _localizationCubit._usingHiveStore = (locale == null);
+    if (_localizationCubit._usingHiveStore) await TMGHiveManager.setup();
   }
 
+  //MARK: Locale
   Locale? _locale;
-  bool _usingHivePersistence = false;
-  Locale get locale {
-    if (_localizationCubit._usingHivePersistence)
-      _locale = TMGHiveManager.get();
-    return _locale ?? Locale('en');
+  static Locale get locale {
+    if (_localizationCubit._usingHiveStore)
+      _localizationCubit._locale = TMGHiveManager.get();
+    return _localizationCubit._locale ?? Locale('en');
   }
 
-  set locale(Locale locale) {
-    _locale = locale;
-    if (_localizationCubit._usingHivePersistence)
-      TMGHiveManager.save(locale: locale);
+  static set locale(Locale locale) {
+    _localizationCubit._locale = locale;
+    if (_localizationCubit._usingHiveStore) TMGHiveManager.save(locale: locale);
     _localizationCubit.emit(TMGLocaleUpdated(locale));
   }
 }

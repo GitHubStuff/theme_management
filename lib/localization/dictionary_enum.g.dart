@@ -30,5 +30,5 @@ extension TMGLocalizationLookup on TMGLocalization {
 
   String byLocale(Locale locale) => byLanguageCode(locale.languageCode);
 
-  String get text => byLocale(TMGLocalizationCubit.cubit.locale);
+  String get text => byLocale(TMGLocalizationCubit.locale);
 }
