@@ -22,6 +22,8 @@ extension XPALLocalizationLookup on XPALLocalization {
         return _lookup(this, Local_de().text);
       case 'es':
         return _lookup(this, Local_es().text);
+      case 'ko':
+        return _lookup(this, Local_ko().text);
       case 'en':
       default:
         return _lookup(this, Local().text);
@@ -30,5 +32,5 @@ extension XPALLocalizationLookup on XPALLocalization {
 
   String byLocale(Locale locale) => byLanguageCode(locale.languageCode);
 
-  String get text => byLocale(XPALLocalizationCubit.locale);
+  String get text => byLocale(XPALLanguage.locale);
 }

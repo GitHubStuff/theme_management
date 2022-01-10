@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:localize_enum_annotation/localize_enum_annotation.dart';
 
-part 'localization_cubit.g.dart';
+import 'dictionary_enum.dart';
 
-@LocalizeCubit('TMG', 'TMGLocalization')
+part 'xpal_cubit.g.dart';
+
+@LocalizeCubit('XPAL', 'XPALLocalization')
 abstract class Template {}

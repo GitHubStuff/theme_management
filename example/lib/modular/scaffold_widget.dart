@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:theme_management/theme_management.dart';
 import 'package:xample/localization/dictionary_enum.dart';
+import 'package:xample/localization/xpal_cubit.dart';
 
 class ScaffoldWidget extends StatefulWidget {
   ScaffoldWidget({Key? key, required this.title}) : super(key: key);
@@ -13,11 +14,6 @@ class ScaffoldWidget extends StatefulWidget {
 }
 
 class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
-  String message = 'Tap for Size';
-  String instruction = 'Tap + to change the text';
-  String instruction2 = 'Tap again';
-  bool isFirst = true;
-
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -26,34 +22,49 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
             //ThemeControlWidget(),
           ],
         ),
-        body: _body(context),
+        body: _rebuild(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            setState(() {
-              isFirst = !isFirst;
-            });
+            setState(() {});
           },
           tooltip: 'Increment',
           child: Icon(Icons.add),
         ),
       );
 
+  Widget _rebuild() {
+    return BlocBuilder(
+        bloc: ThemeManagement.themeModeCubit,
+        builder: (context, state) {
+          return BlocBuilder(
+              bloc: XPALLanguage.cubit,
+              builder: (context, state) {
+                return _body(context);
+              });
+        });
+  }
+
   Widget _body(BuildContext context) {
     return Column(
       //mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(
-          message,
-        ),
-        WidgetSize(
-          onSizeChange: (Size? size) {
-            setState(() => message = 'Size - $size');
-          },
-          child: Text(
-            isFirst ? instruction : instruction2,
-            style: Theme.of(context).textTheme.headline5,
-          ).fontSize(TextKey.subtitle1.fontSize),
-        ),
+        Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(XPALLocalization.helloWorld.text).fontSize(22.0), //Example of localization
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(onPressed: () => XPALLanguage.locale = Locale('en'), child: Text('English')),
+                  ElevatedButton(onPressed: () => XPALLanguage.locale = Locale('es'), child: Text('Spanish')),
+                  ElevatedButton(onPressed: () => XPALLanguage.locale = Locale('de'), child: Text('German')),
+                  ElevatedButton(onPressed: () => XPALLanguage.locale = Locale('ko'), child: Text('Korean')),
+                ],
+              ),
+            ],
+          ),
+        ).borderAll(Colors.blueAccent).paddingAll(3.0),
         SizedBox(height: 4),
         Container(
           child: Padding(
@@ -96,22 +107,6 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
                 return Text('  $tag => $txt').fontSize(18.0);
               }),
         ),
-        Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(XPALLocalization.helloWorld.text).fontSize(22.0), //Example of localization
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(onPressed: () => TMGLocalizationCubit.locale = Locale('en', ''), child: Text('English')),
-                  ElevatedButton(onPressed: () => TMGLocalizationCubit.locale = Locale('es', ''), child: Text('Spanish')),
-                  ElevatedButton(onPressed: () => TMGLocalizationCubit.locale = Locale('de', ''), child: Text('German')),
-                ],
-              ),
-            ],
-          ),
-        ).borderAll(Colors.blueAccent).paddingAll(3.0),
         SizedBox(height: 72.0),
       ],
     );

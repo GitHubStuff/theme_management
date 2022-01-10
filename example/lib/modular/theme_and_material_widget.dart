@@ -1,11 +1,10 @@
 import 'package:extensions_package/extensions_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:theme_management/theme_management.dart';
-import 'package:xample/cubit/xpal_cubit.dart';
+import 'package:xample/localization/xpal_cubit.dart';
 
 class ThemeAndMaterialWidget extends StatelessWidget {
   @override
@@ -15,11 +14,10 @@ class ThemeAndMaterialWidget extends StatelessWidget {
 
   /// Widget wrapper to enclose the BlocBuilder that manages state for changing lanaguage/locale
   Widget _localeWidget() {
-    XPALLocalizationCubit localeCubit = Modular.get<XPALLocalizationCubit>();
-    return BlocBuilder<XPALLocalizationCubit, XPALLocalizationState>(
-        bloc: localeCubit,
+    return BlocBuilder(
+        bloc: XPALLanguage.cubit,
         builder: (_, state) {
-          return _materialAppBloc(XPALLocalizationCubit.locale);
+          return _materialAppBloc(XPALLanguage.locale);
         });
   }
 
@@ -57,15 +55,15 @@ class ThemeAndMaterialWidget extends StatelessWidget {
             themeMode: ThemeManagement.themeMode,
             initialRoute: '/',
             localizationsDelegates: [
-              AppLocalizations.delegate, //Used to translate strings in /l10n/app_en.arb or /l10n/app_es.arb files
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: [
-              const Locale('de', ''), // German, no country code
-              const Locale('en', ''), // English, no country code
-              const Locale('es', ''), // Spanish, no country code
+              const Locale('de'), // German, no country code
+              const Locale('en'), // English, no country code
+              const Locale('es'), // Spanish, no country code
+              const Locale('ko'), // Korean, no country code
             ],
           ).modular();
         });

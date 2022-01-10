@@ -7,4 +7,3 @@ export 'src/theme_data/default_themes.dart';
 export 'src/theme_data/text_key.dart';
 export 'src/theme_management.dart';
 export 'src/theme_mode_extensions.dart';
-export 'src/cubit/localization_cubit.dart';
