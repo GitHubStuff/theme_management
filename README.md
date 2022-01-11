@@ -60,6 +60,14 @@ class ThemeColors {
   Color of(BuildContext context)
   factory ThemeColors.mono({required Color color})
 }
+
+class ThemeGradients {
+  final List<Color> dark;
+  final List<Color> light;
+  const ThemeGradients({required this.dark, required this.light});
+  List<Color> of(BuildContext context)
+  factory ThemeGradients.mono({required List<Color> color})
+}
 ```
 
 The concept is to have a color-design that responds to any change in them, and to have mode-design in place at the start
