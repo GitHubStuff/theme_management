@@ -61,13 +61,19 @@ class ThemeColors {
   factory ThemeColors.mono({required Color color})
 }
 
+/// Alignment geometry is coupled with the gradient colors defauling to centerLeft and centerRight
 class ThemeGradients {
   final List<Color> dark;
   final List<Color> light;
-  const ThemeGradients({required this.dark, required this.light});
-  List<Color> of(BuildContext context)
-  factory ThemeGradients.mono({required List<Color> color})
-}
+  final AlignmentGeometry beginAlignmentGeometry;
+  final AlignmentGeometry endAlignmentGeometry;
+  const ThemeGradients({
+    required this.dark,
+    required this.light,
+    AlignmentGeometry? beginningAlignmentGeometry,
+    AlignmentGeometry? endingAlignmentGeometry,
+  })  : beginAlignmentGeometry = beginningAlignmentGeometry ?? Alignment.centerLeft,
+        endAlignmentGeometry = endingAlignmentGeometry ?? Alignment.centerRight;
 ```
 
 The concept is to have a color-design that responds to any change in them, and to have mode-design in place at the start
