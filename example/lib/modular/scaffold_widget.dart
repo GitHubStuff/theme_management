@@ -1,9 +1,8 @@
 import 'package:extensions_package/extensions_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rae_localization_package/rae_localization_package.dart';
 import 'package:theme_management/theme_management.dart';
-import 'package:xample/localization/dictionary_enum.dart';
-import 'package:xample/localization/xpal_cubit.dart';
 
 class ScaffoldWidget extends StatefulWidget {
   ScaffoldWidget({Key? key, required this.title}) : super(key: key);
@@ -24,27 +23,16 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
         ),
         body: _rebuild(),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {});
-          },
+          onPressed: null,
           tooltip: 'Increment',
           child: Icon(Icons.add),
         ),
       );
 
-  Widget _rebuild() {
-    return BlocBuilder(
-        bloc: ThemeManagement.themeModeCubit,
-        builder: (context, state) {
-          return BlocBuilder(
-              bloc: XPALLanguage.cubit,
-              builder: (context, state) {
-                return _body(context);
-              });
-        });
-  }
+  Widget _rebuild() =>
+      BlocBuilder(bloc: ThemeManagement.themeModeCubit, builder: (context, state) => BlocBuilder(bloc: RAELanguage.cubit, builder: (context, state) => _body()));
 
-  Widget _body(BuildContext context) {
+  Widget _body() {
     return Column(
       //mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -52,19 +40,24 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(XPALLocalization.helloWorld.text).fontSize(22.0), //Example of localization
+              Text(Greeting.helloWorld.text).fontSize(22.0), //Example of localization
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(onPressed: () => XPALLanguage.locale = Locale('en'), child: Text('English')),
-                  ElevatedButton(onPressed: () => XPALLanguage.locale = Locale('es'), child: Text('Spanish')),
-                  ElevatedButton(onPressed: () => XPALLanguage.locale = Locale('de'), child: Text('German')),
-                  ElevatedButton(onPressed: () => XPALLanguage.locale = Locale('ko'), child: Text('Korean')),
+                  ElevatedButton(onPressed: () => RAELanguage.locale = Locale('en'), child: Text('English')),
+                  ElevatedButton(onPressed: () => RAELanguage.locale = Locale('es'), child: Text('Spanish')),
+                  ElevatedButton(onPressed: () => RAELanguage.locale = Locale('de'), child: Text('German')),
+                  ElevatedButton(onPressed: () => RAELanguage.locale = Locale('ko'), child: Text('Korean')),
                 ],
               ),
             ],
           ),
-        ).borderAll(Colors.blueAccent).paddingAll(3.0),
+        )
+            .borderAll(ThemeColors(
+              dark: Colors.deepOrange,
+              light: Colors.green.shade900,
+            ).of(context))
+            .paddingAll(3.0),
         SizedBox(height: 4),
         Container(
           child: Padding(
@@ -100,10 +93,10 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
         Expanded(
           flex: 2,
           child: ListView.builder(
-              itemCount: XPALLocalization.values.length,
+              itemCount: RAELocalization.values.length,
               itemBuilder: (context, index) {
-                final tag = XPALLocalization.values[index].name;
-                final txt = XPALLocalization.values[index].text;
+                final tag = RAELocalization.values[index].name;
+                final txt = RAELocalization.values[index].text;
                 return Text('  $tag => $txt').fontSize(18.0);
               }),
         ),

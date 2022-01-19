@@ -1,5 +1,5 @@
 name: theme_management
-version: 0.3.3+1
+version: 0.4.0+1
 homepage: http://www.raehealth.com
 publish_to: 'none'
 
@@ -14,10 +14,8 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
-  flutter_modular: ^4.3.0
+  flutter_modular: ^4.4.0
   hive_flutter: ^1.1.0
-  i69n: ^2.1.0
-  intl: ^0.17.0
   extensions_package:
     git:
       url: https://github.com/RAE-Health/extensions_package.git
@@ -28,10 +26,6 @@ dependency_overrides: null
 dev_dependencies:
   test:
   build_runner:
-  localize_enum:
-    git:
-      url: https://github.com/RAE-Health/localize_enum.git
-      path: packages/localize_enum
 
 flutter:
   uses-material-design: true
