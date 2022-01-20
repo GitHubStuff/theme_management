@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 /// NOTE: If using this to wrap a Scaffold() widget Scaffold backgroundColor to transparent:
 /// ex: BackgroundImageWidget(image: ImageProvider(), child: Scaffold(..., backgroundColor: Colors.transparent,...));
