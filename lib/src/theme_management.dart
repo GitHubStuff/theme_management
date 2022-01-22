@@ -1,3 +1,4 @@
+import 'package:extensions_package/extensions_package.dart';
 import 'package:flutter/material.dart';
 
 import 'cubit/theme_mode_cubit.dart';
@@ -11,6 +12,8 @@ class ThemeManagement {
     _themeModeCubit = ThemeModeCubit(themeMode);
     await _themeModeCubit.setup();
   }
+
+  static toggle(BuildContext context) => themeMode = (themeMode.of(context) == Brightness.dark) ? ThemeMode.light : ThemeMode.dark;
 
   static set themeMode(ThemeMode mode) => _themeModeCubit.themeMode = mode;
 

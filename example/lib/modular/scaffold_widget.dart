@@ -23,14 +23,13 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
         ),
         body: _rebuild(),
         floatingActionButton: FloatingActionButton(
-          onPressed: null,
-          tooltip: 'Increment',
+          onPressed: () => ThemeManagement.toggle(context),
+          tooltip: 'Toggle',
           child: Icon(Icons.add),
         ),
       );
 
-  Widget _rebuild() =>
-      BlocBuilder(bloc: ThemeManagement.themeModeCubit, builder: (context, state) => BlocBuilder(bloc: RAELanguage.cubit, builder: (context, state) => _body()));
+  Widget _rebuild() => BlocBuilder(bloc: ThemeManagement.themeModeCubit, builder: (context, state) => BlocBuilder(bloc: RAELanguage.cubit, builder: (context, state) => _body()));
 
   Widget _body() {
     return Column(
