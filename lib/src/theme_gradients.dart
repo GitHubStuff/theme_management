@@ -16,6 +16,22 @@ class ThemeGradients {
   })  : beginAlignmentGeometry = beginningAlignmentGeometry ?? Alignment.centerLeft,
         endAlignmentGeometry = endingAlignmentGeometry ?? Alignment.centerRight;
 
-  List<Color> of(BuildContext context) => (ThemeManagement.themeMode.of(context) == Brightness.dark) ? dark : light;
-  factory ThemeGradients.mono({required List<Color> color}) => ThemeGradients(dark: color, light: color);
+  List<Color> of(BuildContext context) {
+    List<Color> result = (ThemeManagement.themeMode.of(context) == Brightness.dark) ? dark : light;
+    assert(result.isNotEmpty, 'Cannot have empty list of colors');
+    if (result.length == 1) result.add(result[0]);
+    return result;
+  }
+
+  factory ThemeGradients.mono({
+    required List<Color> color,
+    AlignmentGeometry? beginningAlignmentGeometry,
+    AlignmentGeometry? endingAlignmentGeometry,
+  }) =>
+      ThemeGradients(
+        dark: color,
+        light: color,
+        beginningAlignmentGeometry: beginningAlignmentGeometry,
+        endingAlignmentGeometry: endingAlignmentGeometry,
+      );
 }
