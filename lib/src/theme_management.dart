@@ -6,7 +6,7 @@ import 'theme_data/default_themes.dart';
 
 class ThemeManagement {
   static ThemeModeCubit _themeModeCubit = ThemeModeCubit();
-  static ThemeModeCubit get themeModeCubit => _themeModeCubit;
+  static ThemeModeCubit get cubit => _themeModeCubit;
 
   static Future<void> setup([ThemeMode? themeMode]) async {
     _themeModeCubit = ThemeModeCubit(themeMode);

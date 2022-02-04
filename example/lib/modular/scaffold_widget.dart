@@ -29,7 +29,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
         ),
       );
 
-  Widget _rebuild() => BlocBuilder(bloc: ThemeManagement.themeModeCubit, builder: (context, state) => BlocBuilder(bloc: RAELanguage.cubit, builder: (context, state) => _body()));
+  Widget _rebuild() => BlocBuilder(bloc: ThemeManagement.cubit, builder: (context, state) => BlocBuilder(bloc: RAELanguage.cubit, builder: (context, state) => _body()));
 
   Widget _body() {
     return Column(
@@ -64,7 +64,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
             child: Column(
               children: [
                 BlocBuilder<ThemeModeCubit, ThemeModeState>(
-                    bloc: ThemeManagement.themeModeCubit,
+                    bloc: ThemeManagement.cubit,
                     builder: (_, state) {
                       return Text('ThemeMode: ${ThemeManagement.themeMode.brightnessMode(context).name}').fontSize(TextKey.headline6.fontSize);
                     }),

@@ -3,43 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../theme_management.dart';
 
-typedef BodyWidget = Widget Function(BuildContext context);
+typedef _ContextWidget = Widget Function(BuildContext context);
+typedef _ContextFreeWidget = Widget Function();
 
 mixin ThemeMixin {
-  /// Place in the widget tree for child branches to respond to language changes (or any other cubit),
-  /// and change from Dark/Light themes.
-  /// NOTE: a typical place for this is right below the scaffold, eg: Scaffold(..,body: themeAndLocale)
-  Widget rebuildTreeOnThemeOrCubit<T>({
-    Cubit<T>? cubit,
-    required BodyWidget bodyWidget,
-  }) =>
-      (cubit == null)
-          ? BlocBuilder(bloc: ThemeManagement.themeModeCubit, builder: (context, _) => bodyWidget(context))
-          : BlocBuilder(
-              bloc: cubit,
-              builder: (_, __) => BlocBuilder(
-                bloc: ThemeManagement.themeModeCubit,
-                builder: (context, _) => bodyWidget(context),
-              ),
-            );
+Widget rebuidTreeOnThemeChange({required dynamic child}) {
+    assert(child is _ContextWidget || child is _ContextFreeWidget);
+    return BlocBuilder(
+        bloc: ThemeManagement.cubit,
+        builder: (context, _) {
+          if (child is _ContextWidget) return child(context);
+          if (child is _ContextFreeWidget) return child();
+          throw FlutterError('Unknown child type: ${child.toString()}');
+        });
+  }
 }
 
-@Deprecated('Now called "ThemeMixin"')
-mixin themeMixin {
-  /// Place in the widget tree for child branches to respond to language changes (or any other cubit),
-  /// and change from Dark/Light themes.
-  /// NOTE: a typical place for this is right below the scaffold, eg: Scaffold(..,body: themeAndLocale)
-  Widget rebuildTreeOnThemeOrCubit<T>({
-    Cubit<T>? cubit,
-    required BodyWidget bodyWidget,
-  }) =>
-      (cubit == null)
-          ? BlocBuilder(bloc: ThemeManagement.themeModeCubit, builder: (context, _) => bodyWidget(context))
-          : BlocBuilder(
-              bloc: cubit,
-              builder: (_, __) => BlocBuilder(
-                bloc: ThemeManagement.themeModeCubit,
-                builder: (context, _) => bodyWidget(context),
-              ),
-            );
-}
+

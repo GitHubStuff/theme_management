@@ -14,7 +14,7 @@ class ThemeAndMaterialWidget extends StatelessWidget {
   Widget _builder() => BlocBuilder(
         bloc: RAELanguage.cubit,
         builder: (_, __) => BlocBuilder(
-          bloc: ThemeManagement.themeModeCubit,
+          bloc: ThemeManagement.cubit,
           builder: (_, state) {
             ThemeMode theState = ThemeManagement.themeMode;
             if (state is ThemeModeUpdate) theState = state.newThemeMode;
