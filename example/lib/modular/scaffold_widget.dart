@@ -1,8 +1,10 @@
 import 'package:extensions_package/extensions_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:language_package/language_package.dart';
 import 'package:rae_localization_package/rae_localization_package.dart';
 import 'package:theme_management/theme_management.dart';
+import 'package:widget_tree_package/widet_tree_package.dart';
 
 class ScaffoldWidget extends StatefulWidget {
   ScaffoldWidget({Key? key, required this.title}) : super(key: key);
@@ -12,7 +14,7 @@ class ScaffoldWidget extends StatefulWidget {
   _ScaffoldWidget createState() => _ScaffoldWidget();
 }
 
-class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
+class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with WidgetTreeMixin {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -21,15 +23,13 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
             //ThemeControlWidget(),
           ],
         ),
-        body: _rebuild(),
+        body: rebuildTreeOnThemeOrLanguageChange(body: _body),
         floatingActionButton: FloatingActionButton(
           onPressed: () => ThemeManagement.toggle(context),
           tooltip: 'Toggle',
           child: Icon(Icons.add),
         ),
       );
-
-  Widget _rebuild() => BlocBuilder(bloc: ThemeManagement.cubit, builder: (context, state) => BlocBuilder(bloc: RAELanguage.cubit, builder: (context, state) => _body()));
 
   Widget _body() {
     return Column(
@@ -43,10 +43,10 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(onPressed: () => RAELanguage.locale = Locale('en'), child: Text('English')),
-                  ElevatedButton(onPressed: () => RAELanguage.locale = Locale('es'), child: Text('Spanish')),
-                  ElevatedButton(onPressed: () => RAELanguage.locale = Locale('de'), child: Text('German')),
-                  ElevatedButton(onPressed: () => RAELanguage.locale = Locale('ko'), child: Text('Korean')),
+                  ElevatedButton(onPressed: () => Language.locale = Locale('en'), child: Text('English')),
+                  ElevatedButton(onPressed: () => Language.locale = Locale('es'), child: Text('Spanish')),
+                  ElevatedButton(onPressed: () => Language.locale = Locale('de'), child: Text('German')),
+                  ElevatedButton(onPressed: () => Language.locale = Locale('ko'), child: Text('Korean')),
                 ],
               ),
             ],
