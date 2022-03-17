@@ -1,10 +1,9 @@
 import 'package:extensions_package/extensions_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:language_package/language_package.dart';
-import 'package:rae_localization_package/rae_localization_package.dart';
+import 'package:rae_asset_package/rae_asset_package.dart';
+import 'package:rae_widgets/rae_widget.dart';
 import 'package:theme_management/theme_management.dart';
-import 'package:widget_tree_package/widet_tree_package.dart';
 
 class ScaffoldWidget extends StatefulWidget {
   ScaffoldWidget({Key? key, required this.title}) : super(key: key);

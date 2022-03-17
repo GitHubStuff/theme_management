@@ -1,31 +1,32 @@
 name: theme_management
-version: 0.4.3+1
+version: 0.5.0+1
 homepage: http://www.raehealth.com
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.16.0 <3.0.0" #Dart SDK 2022-02-04
-  flutter: ">=2.10.0"
+  sdk: ">=2.16.1 <3.0.0" #Dart SDK 2022-02-18
+  flutter: ">=2.10.2"
 
 dependencies:
+  cupertino_icons: ^1.0.4
+  extensions_package:
+    git:
+      url: https://github.com/RAE-Health/extensions_package.git
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.4
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
   flutter_modular: ^4.4.0
-  hive_flutter: ^1.1.0
-  extensions_package:
-    git:
-      url: https://github.com/RAE-Health/extensions_package.git
   font_awesome_flutter: ^9.2.0
+  hive_flutter: ^1.1.0
 
 dependency_overrides: null
 
 dev_dependencies:
-  test:
+  flutter_lints: ^1.0.4
   build_runner:
+  test:
 
 flutter:
   uses-material-design: true
