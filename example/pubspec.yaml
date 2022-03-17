@@ -18,6 +18,13 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_modular: ^4.4.0
+  # rae_assets_package:
+  #   git:
+  #     url: https://github.com/RAE-Health/rae_assets_package.git
+  # rae_widgets:
+  #   git:
+  #     url: https://github.com/RAE-Health/rae_widgets.git
+
 
 
 dependency_overrides:
