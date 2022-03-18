@@ -2,7 +2,7 @@ import 'package:extensions_package/extensions_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rae_asset_package/rae_asset_package.dart';
-import 'package:rae_widgets/rae_widget.dart';
+import 'package:rae_widgets/rae_widgets.dart';
 import 'package:theme_management/theme_management.dart';
 
 class ScaffoldWidget extends StatefulWidget {
